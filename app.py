@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-from PIL import Image
 
 # Sample data for property listings
 property_data = pd.DataFrame({
@@ -18,7 +17,7 @@ cash_buyers_data = pd.DataFrame({
     'Contact': ['Email: cashbuyer1@example.com', 'Phone: 123-456-7890']
 })
 
-fix_and_flip_buyers_data = pd.DataFrame({
+flip_buyers_data = pd.DataFrame({
     'Name': ['Flip Buyer 1', 'Flip Buyer 2'],
     'Criteria': ['Criteria X', 'Criteria Y'],
     'Contact': ['Email: flipbuyer1@example.com', 'Phone: 987-654-3210']
@@ -28,16 +27,14 @@ def main():
     st.title("Real Estate Wholesalers Hub")
 
     # Navigation
-    section = st.sidebar.radio("Select Section", ["List Property", "Learn", "Cash Buyer Section", "Fix and Flip Buyer Section", "Showcase Deals"])
+    section = st.sidebar.radio("Select Section", ["List Property", "Cash Buyers", "Fix and Flip Buyers", "Showcase Deals"])
 
     if section == "List Property":
         list_property()
-    elif section == "Learn":
-        learn_section()
-    elif section == "Cash Buyer Section":
-        cash_buyer_section()
-    elif section == "Fix and Flip Buyer Section":
-        fix_and_flip_buyer_section()
+    elif section == "Cash Buyers":
+        show_cash_buyers()
+    elif section == "Fix and Flip Buyers":
+        show_flip_buyers()
     elif section == "Showcase Deals":
         showcase_deals()
 
@@ -54,53 +51,22 @@ def list_property():
     uploaded_image = st.file_uploader("Upload Property Image", type=["jpg", "jpeg", "png"])
 
     if st.button("List Property"):
-        # Store the property information
+        # Store the property information (you may want to save it to a database)
+        property_data.loc[len(property_data)] = [property_name, description, price, contact, '']
+
         st.success(f"Property '{property_name}' listed successfully!")
-        # You may want to save the information to a database.
 
-def learn_section():
-    st.header("Learning Resources")
+def show_cash_buyers():
+    st.header("Cash Buyers")
 
-    # Add educational content about subject-to, lease options, and other creative financing skills
-    st.markdown("### Subject-to the Existing Mortgage")
-    st.write("Content about subject-to")
+    # Display a table of cash buyers with their criteria and contact information
+    st.table(cash_buyers_data)
 
-    st.markdown("### Lease Option")
-    st.write("Content about lease options")
+def show_flip_buyers():
+    st.header("Fix and Flip Buyers")
 
-    # Add more sections for other creative financing skills
-
-def cash_buyer_section():
-    st.header("Cash Buyer Section")
-
-    # Add form for cash buyers to list their criteria and contact information
-    st.subheader("Fill in the criteria for homes you're looking for:")
-    cash_buyer_name = st.text_input("Your Name")
-    criteria = st.text_input("Criteria")
-    contact_info = st.text_input("Contact Information")
-
-    if st.button("Submit Criteria"):
-        # Store the criteria
-        st.success("Criteria submitted successfully!")
-        # Store the contact information
-        st.success("Contact information submitted successfully!")
-        # You may want to save the data to a database.
-
-def fix_and_flip_buyer_section():
-    st.header("Fix and Flip Buyer Section")
-
-    # Add form for fix and flip buyers to list their criteria and contact information
-    st.subheader("Fill in the criteria for homes you'd like to buy:")
-    flip_buyer_name = st.text_input("Your Name")
-    criteria = st.text_input("Criteria")
-    contact_info = st.text_input("Contact Information")
-
-    if st.button("Submit Criteria"):
-        # Store the criteria
-        st.success("Criteria submitted successfully!")
-        # Store the contact information
-        st.success("Contact information submitted successfully!")
-        # You may want to save the data to a database.
+    # Display a table of fix and flip buyers with their criteria and contact information
+    st.table(flip_buyers_data)
 
 def showcase_deals():
     st.header("Showcase Deals")
@@ -111,12 +77,20 @@ def showcase_deals():
         st.write(f"Description: {row['Description']}")
         st.write(f"Price: {row['Price']}")
         st.write(f"Contact: {row['Contact']}")
-        image = Image.open(row['Images'])
-        st.image(image, caption=row['Property'], use_column_width=True)
+        image = row['Images']
+        if image:
+            st.image(image, caption=row['Property'], use_column_width=True)
+        else:
+            st.write("No image available for this property.")
 
 if __name__ == "__main__":
     main()
 
+
+    
+       
+      
+      
  
 
   
