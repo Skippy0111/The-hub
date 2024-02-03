@@ -15,7 +15,7 @@ def main():
     st.title("Real Estate Wholesalers Hub")
 
     # Navigation
-    section = st.sidebar.radio("Select Section", ["List Property", "Learn", "Cash Buyer Criteria", "Fix and Flip Buyer Criteria", "Showcase Deals"])
+    section = st.sidebar.radio("Select Section", ["List Property", "Learn", "Cash Buyer Criteria", "Fix and Flip Buyer Criteria", "Showcase Deals", "Contact Cash Buyers", "Contact Fix and Flip Buyers"])
 
     if section == "List Property":
         list_property()
@@ -27,6 +27,10 @@ def main():
         fix_and_flip_buyer_criteria()
     elif section == "Showcase Deals":
         showcase_deals()
+    elif section == "Contact Cash Buyers":
+        contact_buyers("Cash Buyers")
+    elif section == "Contact Fix and Flip Buyers":
+        contact_buyers("Fix and Flip Buyers")
 
 def list_property():
     st.header("List Your Property")
@@ -97,5 +101,20 @@ def showcase_deals():
         image = Image.open(row['Images'])
         st.image(image, caption=row['Property'], use_column_width=True)
 
+def contact_buyers(buyer_type):
+    st.header(f"Contact {buyer_type}")
+
+    # Add form for contacting cash buyers or fix and flip buyers
+    buyer_name = st.text_input(f"{buyer_type} Name")
+    contact_info = st.text_area(f"Contact Information for {buyer_type}")
+
+    if st.button(f"Contact {buyer_type}"):
+        # You can customize this part to send emails or store contact information as needed
+        st.success(f"Contact information sent to {buyer_name} successfully!")
+
 if __name__ == "__main__":
     main()
+
+   
+  
+  
