@@ -11,26 +11,35 @@ property_data = pd.DataFrame({
     'Images': ['property_a.jpg', 'property_b.jpg', 'property_c.jpg']
 })
 
+# Sample data for cash buyers and fix and flip buyers
+cash_buyers_data = pd.DataFrame({
+    'Name': ['Cash Buyer 1', 'Cash Buyer 2'],
+    'Criteria': ['Criteria A', 'Criteria B'],
+    'Contact': ['Email: cashbuyer1@example.com', 'Phone: 123-456-7890']
+})
+
+fix_and_flip_buyers_data = pd.DataFrame({
+    'Name': ['Flip Buyer 1', 'Flip Buyer 2'],
+    'Criteria': ['Criteria X', 'Criteria Y'],
+    'Contact': ['Email: flipbuyer1@example.com', 'Phone: 987-654-3210']
+})
+
 def main():
     st.title("Real Estate Wholesalers Hub")
 
     # Navigation
-    section = st.sidebar.radio("Select Section", ["List Property", "Learn", "Cash Buyer Criteria", "Fix and Flip Buyer Criteria", "Showcase Deals", "Contact Cash Buyers", "Contact Fix and Flip Buyers"])
+    section = st.sidebar.radio("Select Section", ["List Property", "Learn", "Cash Buyer Section", "Fix and Flip Buyer Section", "Showcase Deals"])
 
     if section == "List Property":
         list_property()
     elif section == "Learn":
         learn_section()
-    elif section == "Cash Buyer Criteria":
-        cash_buyer_criteria()
-    elif section == "Fix and Flip Buyer Criteria":
-        fix_and_flip_buyer_criteria()
+    elif section == "Cash Buyer Section":
+        cash_buyer_section()
+    elif section == "Fix and Flip Buyer Section":
+        fix_and_flip_buyer_section()
     elif section == "Showcase Deals":
         showcase_deals()
-    elif section == "Contact Cash Buyers":
-        contact_buyers("Cash Buyers")
-    elif section == "Contact Fix and Flip Buyers":
-        contact_buyers("Fix and Flip Buyers")
 
 def list_property():
     st.header("List Your Property")
@@ -61,33 +70,37 @@ def learn_section():
 
     # Add more sections for other creative financing skills
 
-def cash_buyer_criteria():
-    st.header("Cash Buyer Criteria")
+def cash_buyer_section():
+    st.header("Cash Buyer Section")
 
-    # Add form for cash buyers to list their criteria (e.g., location, budget, property type)
+    # Add form for cash buyers to list their criteria and contact information
     st.subheader("Fill in the criteria for homes you're looking for:")
-    location = st.text_input("Location")
-    budget = st.text_input("Budget")
-    property_type = st.text_input("Property Type")
+    cash_buyer_name = st.text_input("Your Name")
+    criteria = st.text_input("Criteria")
+    contact_info = st.text_input("Contact Information")
 
     if st.button("Submit Criteria"):
         # Store the criteria
         st.success("Criteria submitted successfully!")
-        # You may want to save the criteria to a database.
+        # Store the contact information
+        st.success("Contact information submitted successfully!")
+        # You may want to save the data to a database.
 
-def fix_and_flip_buyer_criteria():
-    st.header("Fix and Flip Buyer Criteria")
+def fix_and_flip_buyer_section():
+    st.header("Fix and Flip Buyer Section")
 
-    # Add form for fix and flip buyers to list their criteria (e.g., location, budget, property type)
+    # Add form for fix and flip buyers to list their criteria and contact information
     st.subheader("Fill in the criteria for homes you'd like to buy:")
-    location = st.text_input("Location")
-    budget = st.text_input("Budget")
-    property_type = st.text_input("Property Type")
+    flip_buyer_name = st.text_input("Your Name")
+    criteria = st.text_input("Criteria")
+    contact_info = st.text_input("Contact Information")
 
     if st.button("Submit Criteria"):
         # Store the criteria
         st.success("Criteria submitted successfully!")
-        # You may want to save the criteria to a database.
+        # Store the contact information
+        st.success("Contact information submitted successfully!")
+        # You may want to save the data to a database.
 
 def showcase_deals():
     st.header("Showcase Deals")
@@ -101,20 +114,14 @@ def showcase_deals():
         image = Image.open(row['Images'])
         st.image(image, caption=row['Property'], use_column_width=True)
 
-def contact_buyers(buyer_type):
-    st.header(f"Contact {buyer_type}")
-
-    # Add form for contacting cash buyers or fix and flip buyers
-    buyer_name = st.text_input(f"{buyer_type} Name")
-    contact_info = st.text_area(f"Contact Information for {buyer_type}")
-
-    if st.button(f"Contact {buyer_type}"):
-        # You can customize this part to send emails or store contact information as needed
-        st.success(f"Contact information sent to {buyer_name} successfully!")
-
 if __name__ == "__main__":
     main()
 
+ 
+
+  
+
+    
    
   
   
